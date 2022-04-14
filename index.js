@@ -149,8 +149,34 @@ function removeRow() {
       });
     } else if (data.table === "roles") {
       inquirer.prompt(questions.removeId).then((data) => {
-          
-          });
+        const sql = `REMOVE FROM roles WHERE id = ?`;
+        const params = [data.id];
+        db.query(sql, params, (err, rows) => {
+          if (err) {
+            throw err;
+          } else {
+            console.log("You have successfully removed a row.");
+          }
+          Proceed();
+        });
+      });
+    } else if (data.table === "departments") {
+      inquirer.prompt(questions.removeId).then((data) => {
+        const sql = `REMOVE FROM departments WHERE id = ?`;
+        const params = [data.id];
+        db.query(sql, params, (err, rows) => {
+          if (err) {
+            throw err;
+          } else {
+            console.log("You have successfully removed a row.");
+          }
+          Proceed();
+        });
+      });
+    } else {
+      console.log("Incorrect.");
     }
   });
 }
+
+begin();
