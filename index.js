@@ -135,9 +135,22 @@ function Proceed() {
 function removeRow() {
   inquirer.prompt(questions.Remove).then((data) => {
     if (data.table === "employees") {
-      inquirer.prompt(questions.removeId).then(function (data) {
+      inquirer.prompt(questions.removeId).then((data) => {
         const sql = `REMOVE FROM employees WHERE id = ?`;
+        const params = [data.id];
+        db.query(sql, params, (err, rows) => {
+          if (err) {
+            throw err;
+          } else {
+            console.log("You have successfully removed a row.");
+          }
+          Proceed();
+        });
       });
+    } else if (data.table === "roles") {
+      inquirer.prompt(questions.removeId).then((data) => {
+          
+          });
     }
   });
 }
